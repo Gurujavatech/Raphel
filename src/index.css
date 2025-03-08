@@ -1,0 +1,303 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+  --primary: #23118c94;
+  --background: #f5f8ff44;
+}
+
+.primary {
+  color: var(--primary);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  pointer-events: auto !important;
+  user-select: auto !important;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+  font-family: "lato", sans-seirf;
+}
+
+
+ul {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+.container {
+  max-width: 1240px;
+  margin: auto;
+}
+
+
+body {
+  font-family: 'Poppins', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+
+h1 {
+  font-size: 3.5rem;
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: 2.4rem;
+  line-height: 1.2;
+}
+
+h5 {
+  font-size: 1.1rem;
+  line-height: 1.2;
+}
+
+p {
+  font-size: 1.2rem;
+}
+
+.btn {
+  padding: 14px 32px;
+  border: 1px solid var(--primary);
+  background-color: var(--primary);
+  color: #fff;
+  border-radius: 24px 4px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn:hover {
+  box-shadow: rgb(0 0 0 / 15%) 0px 8px 24px;
+}
+
+input {
+  padding: 12px 32px;
+  border: 1px solid var(--primary);
+  background: transparent;
+  border-radius: 24px 4px;
+  font-size: 1rem;
+  margin-right: .8rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.card {
+  width: 100vw;
+  max-width: 100%;
+  margin: 20px 0;
+}
+
+.card-content {
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  background: var(--card-bg);
+}
+
+.card-content p {
+  font-size: 14px;
+  color: #555;
+  display: flex;
+  justify-content: center;
+}
+
+.card-content span {
+  margin-left: 8px;
+  font-size: 18px;
+  color: #007bff;
+}
+
+.card-content a {
+  text-decoration: none;
+}
+
+
+.crypto-prices ul {
+  list-style: none;
+  padding: 0;
+}
+
+.crypto-prices li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  margin: 5px 0;
+}
+
+.crypto-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100vw;
+    max-width: 100%;
+}
+
+.coin-icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+.coin-name {
+  font-weight: bold;
+  flex-grow: 1;
+  max-width: 100%; /* Ensures it takes up full width */
+  overflow: hidden; /* Prevents text overflow */
+  text-overflow: ellipsis; /* Adds "..." if the text is too long */
+  white-space: nowrap; /* Keeps the text in a single line */
+}
+
+.coin-price {
+  font-size: 16px;
+  font-weight: bold;
+  color: green;
+  text-align: right; /* Ensures alignment to the right */
+  width: 100%; /* Expands the width */
+  max-width: 100%;
+}
+.crypto-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #333;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 10px;
+}
+
+
+
+@media screen and (max-width:768px) {
+  h1 {
+    font-size: 2.1rem;
+    line-height: 1.2;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+    line-height: 1.2;
+  }
+  
+  h5 {
+    font-size: 1.1rem;
+    line-height: 1.2;
+  }
+  
+  p {
+    font-size: 1rem;
+  }
+
+  .btn {
+    width: 100%;
+    margin: 1rem 0;
+  }
+
+  input {
+    width: 100%;
+  }
+
+}
+
+.card {
+  width: 100%;
+  max-width: 350px;
+  margin: 20px 0;
+}
+
+.card-content {
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  background: var(--card-bg);
+  width: 100vw;
+    max-width: 100%;
+}
+
+.card-content p {
+  font-size: 14px;
+  color: #555;
+  display: flex;
+  justify-content: center;
+}
+
+.card-content span {
+  margin-left: 8px;
+  font-size: 18px;
+  color: #007bff;
+}
+
+.card-content a {
+  text-decoration: none;
+}
+
+
+.crypto-prices {
+  width: 50vw;
+  max-width: 30%;
+  margin: 0 auto;
+  background: #222;
+  padding: 10px;
+  border-radius: 10px;
+  color: white;
+}
+
+.crypto-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100vw;
+  max-width: 100%;
+}
+
+.crypto-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #333;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 10px;
+  width: 100vw;
+  max-width: 100%;
+}
+
+.coin-icon {
+  width: 30px;
+  height: 30px;
+}
+
+.coin-name {
+  font-weight: bold;
+  flex-grow: 1;
+  width: 100%; /* Ensure it expands fully */
+  text-align: left;
+}
+
+.coin-price {
+  font-size: 16px;
+  font-weight: bold;
+  color: green;
+  text-align: right;
+}
+
+
+
+

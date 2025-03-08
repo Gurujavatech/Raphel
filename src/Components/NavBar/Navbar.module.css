@@ -1,0 +1,113 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  height: 60px;
+  background: rgba(0, 0, 0, 0);
+  color: white;
+  position: relative;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  transition: background 0.3s ease-in-out;
+  margin-bottom: 0;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: rgb(5, 29, 39);
+}
+
+
+.navLinks {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  list-style: none;
+  color: rgb(60, 49, 91);
+}
+
+.navLinks a {
+  color: rgb(60, 49, 91);
+  text-decoration: none;
+  font-size: 18px;
+  transition: color 0.3s;
+}
+
+.navLinks a:hover {
+  color: purple;
+}
+
+
+.authContainer {
+  display: flex;
+  justify-content: flex-end;
+  min-width: 120px;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  background-color: rgb(171, 159, 242);
+  color: #fff;
+  border-radius: 24px 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn:hover {
+  box-shadow: rgb(0 0 0 / 15%) 0px 8px 24px;
+}
+
+
+.menuIcon {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: rgb(60, 49, 91);
+}
+
+
+@media (max-width: 768px) {
+  .menuIcon {
+    display: block;
+  }
+
+  
+  .navLinks {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    background: black;
+    text-align: center;
+    padding: 10px 0;
+  }
+
+    .navLinks.active {
+    display: flex;
+  }
+
+  
+  .navLinks li {
+    width: 100%;
+    padding: 10px 0;
+  }
+
+  .navLinks a {
+    font-size: 1.2rem;
+    color: white;
+  }
+
+  .btn {
+    width: 80%;
+    margin: 10px auto;
+  }
+}

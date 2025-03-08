@@ -1,0 +1,37 @@
+.tickerContainer {
+  background: #d7d3ec;  
+  color: white;
+  padding: 12px 20px;  
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  width: 100%;
+  position: relative;  
+  z-index: 10;  
+  margin-top: 0; 
+}
+
+.tickerText {
+  display: block;
+  margin: 0 auto;
+  color: rgb(60, 49, 91);
+  max-width: 90%; 
+  line-height: 1.5; 
+}
+
+.tickerText a {
+  color: rgb(26, 95, 122);
+  text-decoration: underline;
+}
+
+
+@media (max-width: 768px) {
+  .tickerContainer {
+    padding: 15px;  
+  }
+
+  .tickerText {
+    font-size: 12px;  
+    max-width: 95%;
+  }
+}

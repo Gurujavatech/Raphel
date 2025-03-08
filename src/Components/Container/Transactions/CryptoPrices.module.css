@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+  --primary: #23118c94;
+  --background: #f5f8ff44;
+}
+
+.primary {
+  color: var(--primary);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+
+.crypto-prices {
+  width: 50vw;
+  max-width: 30%;
+  margin: 0 auto;
+  background: #222;
+  padding: 15px;
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+}
+
+.crypto-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.crypto-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #333;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 10px;
+}
+
+.coin-icon {
+  width: 30px;
+  height: 30px;
+}
+
+.coin-name {
+  font-weight: bold;
+  flex-grow: 1;
+  text-align: left;
+}
+
+.coin-price {
+  font-size: 16px;
+  font-weight: bold;
+  color: green;
+  text-align: right;
+}
+
+
+@media screen and (max-width: 768px) {
+  .crypto-prices {
+    width: 90%;
+    max-width: 100%;
+    padding: 10px;
+  }
+
+  .crypto-list {
+    width: 100%;
+  }
+
+  .crypto-card {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .coin-name,
+  .coin-price {
+    text-align: left;
+    width: 100%;
+  }
+}

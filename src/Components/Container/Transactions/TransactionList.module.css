@@ -1,0 +1,68 @@
+.container {
+    width: 100%; 
+    max-width: 400px;  /* Prevent it from exceeding the parent */
+    margin: auto;
+    background: #222;  /* Dark background */
+    padding: 15px;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  h3 {
+    text-align: center;
+    color: white;
+    margin-bottom: 10px;
+  }
+  
+  /* Transactions List */
+  .list {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 40px;
+  }
+  
+  .list {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 40px;
+    max-height: 300px; /* ✅ Set a maximum height */
+    overflow-y: auto; /* ✅ Enable vertical scrolling */
+    overflow-x: hidden; /* ✅ Prevent horizontal overflow */
+    width: 100%; /* ✅ Ensure it fits within the container */
+  }
+  
+  /* ✅ Style each transaction */
+  .list li {
+    background-color: #fff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Add box shadow */
+    color: #333;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px; 
+    word-wrap: break-word; 
+    white-space: normal; 
+  }
+  
+  
+  .list li.plus {
+    border-right: 5px solid #2ecc71;
+  }
+  
+  
+  .list li.minus {
+    border-right: 5px solid #c0392b;
+  }
+  
+    
+  
+  .plus {
+    border-left: 5px solid green;
+  }
+  
+  .minus {
+    border-left: 5px solid red;
+  }
+  

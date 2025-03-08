@@ -1,0 +1,80 @@
+.container {
+  margin: 30px auto;
+  width: 100vw; 
+  max-width: 1300px; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(31, 27, 27);
+  color: white;
+  padding: 20px; 
+  border-radius: 15px; 
+  border: 2px solid rgba(255, 255, 255, 0.644); 
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4); 
+  transition: all 0.3s ease-in-out; 
+}
+
+
+.container:hover {
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.6);
+  transform: translateY(-2px);
+}
+
+  .main-wrapper {
+    background-color: rgb(28, 28, 28);
+  }
+
+  h1 {
+    letter-spacing: 1px;
+    margin: 0;
+    
+  }
+  
+  h3 {
+    border-bottom: 1px solid #bbb;
+    padding-bottom: 10px;
+    margin: 40px 0 10px;
+  }
+  
+  .rightVideo {
+    position: fixed; 
+    bottom: 10px; 
+    right: 15px;
+    width: 400px; 
+    height: auto;
+    opacity: 0.8; 
+    z-index: 1000;  
+    border-radius: 10px;
+  }
+  
+  .mainWrapper {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  
+  .flexContainer {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    min-height: calc(100vh - 60px); 
+  }
+  
+ 
+  .leftSection {
+    width: 25%;  
+    padding: 20px;
+    background-color: #1a1a1a; 
+    color: white;
+    border-radius: 10px;
+  }
+  
+  
+  .rightSection {
+    width: 75%;
+    padding: 20px;
+    background-color: #f8f8f8; 
+  }
+  
