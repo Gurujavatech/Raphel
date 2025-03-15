@@ -1,46 +1,52 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./Swap.module.css";
 
-const Swap = ({ onClose }) => {
-  const [type, setType] = useState("Forex");
-  const [asset, setAsset] = useState("");
-  const [amount, setAmount] = useState("");
-  const [duration, setDuration] = useState("1 hour");
-
-  const handleSwap = (e) => {
-    e.preventDefault();
-    alert(`Swapped ${amount} of ${asset} in ${type} for ${duration}`);
-    window.location.reload();
-  };
-
+const Swap = () => {
   return (
-    <div className={styles.swapContainer}>
-      <h3>Swap Assets</h3>
-      <form onSubmit={handleSwap}>
-        <label>Type:</label>
-        <select value={type} onChange={(e) => setType(e.target.value)}>
-          <option value="Forex">Forex</option>
-          <option value="Crypto">Crypto</option>
-          <option value="Stocks">Stocks</option>
-        </select>
+    <section className={styles.swap}>
+      <div className={styles.content}>
+        <h1 className={styles.title}>UK Risk Summary</h1>
+        <p className={styles.subtitle}><i>Estimated reading time: 2 min</i></p>
+        <p className={styles.paragraph}>
+          Due to the potential for losses, the Financial Conduct Authority (FCA) considers this investment to be high risk.
+        </p>
 
-        <label>Asset:</label>
-        <input type="text" value={asset} onChange={(e) => setAsset(e.target.value)} required />
+        <h2 className={styles.title}>What are the key risks?</h2>
+        <p className={styles.paragraph}>
+          <strong>1. You could lose all the money you invest</strong> <br />
+          • The performance of most cryptoassets can be highly volatile, with their value dropping as quickly as it can rise. You should be prepared to lose all the money you invest in cryptoassets. <br />
+          • The cryptoasset market is largely unregulated. There is a risk of losing money or any cryptoassets you purchase due to risks such as cyber-attacks, financial crime, and firm failure.
+        </p>
 
-        <label>Amount:</label>
-        <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} required />
+        <p className={styles.paragraph}>
+          <strong>2. You should not expect to be protected if something goes wrong</strong> <br />
+          The Financial Services Compensation Scheme (FSCS) doesn’t protect this type of investment because it’s not a ‘specified investment’ under the UK regulatory regime. Learn more by using the FSCS investment protection checker. <br />
+          The Financial Ombudsman Service (FOS) will not be able to consider complaints related to this firm. Learn more about FOS protection.
+        </p>
 
-        <label>Duration:</label>
-        <select value={duration} onChange={(e) => setDuration(e.target.value)}>
-          <option value="1 hour">1 hour</option>
-          <option value="2 hours">2 hours</option>
-          <option value="6 hours">6 hours</option>
-        </select>
+        <p className={styles.paragraph}>
+          <strong>3. You may not be able to sell your investment when you want to</strong> <br />
+          There is no guarantee that investments in cryptoassets can be easily sold at any given time. The ability to sell a cryptoasset depends on various factors, including the supply and demand in the market at that time.
+        </p>
 
-        <button type="submit" className={styles.swapButton}>Swap</button>
-        <button type="button" className={styles.closeButton} onClick={onClose}>Cancel</button>
-      </form>
-    </div>
+        <p className={styles.paragraph}>
+          <strong>4. Cryptoasset investments can be complex</strong> <br />
+          Investments in cryptoassets can be complex, making it difficult to understand the risks associated with the investment. <br />
+          You should do your own research before investing. If something sounds too good to be true, it probably is.
+        </p>
+
+        <p className={styles.paragraph}>
+          <strong>5. Don’t put all your eggs in one basket</strong> <br />
+          Putting all your money into a single type of investment is risky. Spreading your money across different investments makes you less dependent on any one to do well. <br />
+          A good rule of thumb is <a href="#" className={styles.link}>not to invest more than 10% of your money into high-risk investments</a>.
+        </p>
+
+        <p className={styles.paragraph}>
+          If you are interested in learning more about how to protect yourself, visit the FCA’s website <a href="https://www.fca.org.uk/investsmart" className={styles.link}>here</a>. <br />
+          For further information about cryptoassets, visit the FCA’s website <a href="https://www.fca.org.uk/investsmart" className={styles.link}>here</a>.
+        </p>
+      </div>
+    </section>
   );
 };
 
