@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { FaHome, FaChartBar, FaHistory, FaSignInAlt, FaSignOutAlt } from "react-icons/fa";
 import { LuDollarSign } from "react-icons/lu"; 
 import styles from "./BottomNav.module.css";
@@ -8,8 +8,8 @@ import { useAuth } from "../Utilities/AuthContext";
 const BottomNav = () => {
   const { user, logout } = useAuth();
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const navigate = useNavigate()
 
-  
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
@@ -19,10 +19,8 @@ const BottomNav = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  if (!isMobile) return null; 
-
   return (
-    <nav className={styles.bottomNav}>
+    <nav className={styles.bottomNav} style={{ display: isMobile ? "flex" : "none" }}> 
       <NavLink to="/" className={styles.navItem}>
         <FaHome />
         <span>Home</span>
@@ -33,14 +31,14 @@ const BottomNav = () => {
         <span>Dashboard</span>
       </NavLink>
 
-      <NavLink to="/history" className={styles.navItem}>
+      {/* <NavLink onClick={() => navigate("/transactions")} className={styles.navItem}>
         <FaHistory />
         <span>History</span>
-      </NavLink>
+      </NavLink> */}
 
-      <NavLink to="/deposit" className={styles.navItem}>
+      <NavLink to="/trade" className={styles.navItem}>
         <LuDollarSign />
-        <span>Deposit</span>
+        <span>Buy</span>
       </NavLink>
 
       {user ? (

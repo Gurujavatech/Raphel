@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Add from "./Add";
 import Send from "./Send";
+import Deposit from "../../Deposit/Deposit";
 import styles from "./ReceiveIcon.module.css";
 import { LuDollarSign } from "react-icons/lu";
 import { RiSwap3Fill } from "react-icons/ri";
 import { FiSend } from "react-icons/fi";
 import { FaRotate } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
 function ReceiveIcon({ setBalance, deductBalance, transactions = [] }) {
   const [showAdd, setShowAdd] = useState(false);
@@ -17,7 +19,9 @@ function ReceiveIcon({ setBalance, deductBalance, transactions = [] }) {
   const [selectedAsset, setSelectedAsset] = useState("");
   const [amount, setAmount] = useState("");
   const [duration, setDuration] = useState("1 Hour");
-  const [swapAction, setSwapAction] = useState("Swap"); 
+  const [swapAction, setSwapAction] = useState("Swap");
+  
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchCryptoAssets = async () => {
@@ -40,7 +44,14 @@ function ReceiveIcon({ setBalance, deductBalance, transactions = [] }) {
     window.location.reload();
   };
 
-  const totalBalance = transactions.reduce((acc, t) => acc + Number(t.amount), 0);
+  const totalBalance = Array.isArray(transactions)
+  ? transactions
+      .filter((t) => t && t.amount !== undefined)
+      .reduce((acc, t) => acc + Number(t.amount), 0)
+  : 0;
+
+console.log("Total Balance:", totalBalance); 
+
 
   return (
     <div>
@@ -60,6 +71,21 @@ function ReceiveIcon({ setBalance, deductBalance, transactions = [] }) {
           </div>
         </button>
 
+{/* <button
+          className={`${styles.btn} ${styles.deposit}`}
+          onClick={() => {
+            setShowDeposit(!showDeposit);
+            setShowAdd(false);
+            setShowSend(false);
+            setShowSwap(false);
+          }}
+        >
+          <div className={styles.iconText}>
+            <LuDollarSign size={25} color="purple" />
+            <span>Deposit</span>
+          </div>
+        </button> */}
+
         <button
           className={`${styles.btn} ${styles.send}`}
           onClick={() => {
@@ -76,34 +102,16 @@ function ReceiveIcon({ setBalance, deductBalance, transactions = [] }) {
         </button>
 
         <button
-          className={`${styles.btn} ${styles.swap}`}
-          onClick={() => {
-            setShowSwap(!showSwap);
-            setShowAdd(false);
-            setShowSend(false);
-            setShowDeposit(false);
-          }}
-        >
-          <div className={styles.iconText}>
-            <FaRotate size={25} color="purple" />
-            <span>Swap</span>
-          </div>
-        </button>
+  className={`${styles.btn} ${styles.swap}`}
+  onClick={() => navigate("/trade")}
+>
+  <div className={styles.iconText}>
+    <FaRotate size={25} color="purple" />
+    <span>Buy</span>
+  </div>
+</button>
 
-        <button
-          className={`${styles.btn} ${styles.deposit}`}
-          onClick={() => {
-            setShowDeposit(!showDeposit);
-            setShowAdd(false);
-            setShowSend(false);
-            setShowSwap(false);
-          }}
-        >
-          <div className={styles.iconText}>
-            <LuDollarSign size={25} color="purple" />
-            <span>Deposit</span>
-          </div>
-        </button>
+
       </div>
 
       
@@ -168,6 +176,8 @@ function ReceiveIcon({ setBalance, deductBalance, transactions = [] }) {
 
       {showAdd && <Add setBalance={setBalance} onClose={() => setShowAdd(false)} />}
       {showSend && <Send deductBalance={deductBalance} balance={totalBalance} onClose={() => setShowSend(false)} />}
+      {showDeposit && <Deposit setBalance={setBalance} onClose={() => setShowDeposit(false)} />}
+
     </div>
   );
 }

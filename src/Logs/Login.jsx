@@ -1,55 +1,73 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./Login.module.css"; 
-
-import { useRef } from "react";
 import { toast } from "react-toastify";
 import { useAuth } from "../Utilities/AuthContext";
 
 const Login = () => {
-  const {user, loginUser} = useAuth()
-  const navigate = useNavigate()
-
-  const loginForm = useRef(null)
+  const { user, loginUser } = useAuth();
+  const navigate = useNavigate();
+  const loginForm = useRef(null);
 
   useEffect(() => {
-    if(user){
-      toast.success("Logged in successfully")
-      navigate('/dashboard')
+    if (user && Object.keys(user).length > 0) {
+      toast.success("Logged in successfully");
+      navigate('/dashboard');
     }
-  },[user, navigate])
+  }, [user, navigate]);
 
-  
-  const handleSubmit = (e) => {
+  const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
 
     if (!loginForm.current) {
-        toast.error("Form reference not available.");
-        return;
+      toast.error("Form reference not available.");
+      return;
     }
 
-    const email = loginForm.current.email.value;
-    const password = loginForm.current.password.value;
+    const email = loginForm.current.email.value.trim();
+    const password = loginForm.current.password.value.trim();
 
-    const userInfo = { email, password };
-    loginUser(userInfo);
-};
+    if (!email || !password) {
+      toast.error("Please fill in all fields.");
+      return;
+    }
 
-
+    try {
+      await loginUser({ email, password });
+      toast.success("Login successful!");
+      navigate("/dashboard");
+    } catch (error) {
+      toast.error(error.message || "Login failed.");
+    }
+  }, [loginUser, navigate]);
 
   return (
     <div className={styles.container}>
       <div className={styles.loginRegisterContainer}>
         <h2>Login</h2>
-        <form ref = {loginForm} onSubmit={handleSubmit}>
+        <form ref={loginForm} onSubmit={handleSubmit}>
           <div className={styles.formFieldWrapper}>
             <label>Email:</label>
-            <input required type="email" name="email" placeholder="Enter email..." />
+            <input 
+              required 
+              type="email" 
+              name="email" 
+              placeholder="Enter email..." 
+              autoComplete="off" 
+              autoFocus 
+            />
           </div>
 
           <div className={styles.formFieldWrapper}>
             <label>Password:</label>
-            <input type="password" name="password" placeholder="Enter password..." autoComplete="current-password" />
+            <input 
+              type="password" 
+              name="password" 
+              placeholder="Enter password..." 
+              minLength={6} 
+              maxLength={20} 
+              autoComplete="current-password" 
+            />
           </div>
 
           <div className={styles.formFieldWrapper}>

@@ -1,8 +1,8 @@
 .container {
     width: 100%; 
-    max-width: 400px;  /* Prevent it from exceeding the parent */
+    max-width: 400px;  
     margin: auto;
-    background: #222;  /* Dark background */
+    background: #222;  
     padding: 15px;
     border-radius: 10px;
     overflow: hidden;
@@ -14,7 +14,7 @@
     margin-bottom: 10px;
   }
   
-  /* Transactions List */
+  
   .list {
     list-style-type: none;
     padding: 0;
@@ -25,16 +25,16 @@
     list-style-type: none;
     padding: 0;
     margin-bottom: 40px;
-    max-height: 300px; /* ✅ Set a maximum height */
-    overflow-y: auto; /* ✅ Enable vertical scrolling */
-    overflow-x: hidden; /* ✅ Prevent horizontal overflow */
-    width: 100%; /* ✅ Ensure it fits within the container */
+    max-height: 300px; 
+    overflow-y: auto; 
+    overflow-x: hidden; 
+    width: 100%; 
   }
   
-  /* ✅ Style each transaction */
+  
   .list li {
     background-color: #fff;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Add box shadow */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
     color: #333;
     display: flex;
     justify-content: space-between;
@@ -64,5 +64,14 @@
   
   .minus {
     border-left: 5px solid red;
+  }
+
+  .status {
+    margin-left: 10px;
+    font-weight: bold;
+  }
+
+  .pending {
+    color: orange;
   }
   

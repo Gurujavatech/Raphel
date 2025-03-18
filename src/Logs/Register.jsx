@@ -4,6 +4,7 @@ import styles from "./Register.module.css";
 import { useEffect } from "react"; 
 import { useRef } from "react";
 import { useAuth } from "../Utilities/AuthContext";
+import { toast } from "react-toastify";
 
 
 
@@ -20,28 +21,32 @@ const Register = () => {
         }, [user, navigate])
     
 
-    const handleSubmit= (e) => {
-        e.preventDefault()
-
-        const name = registerationForm.current.name.value
-        const email = registerationForm.current.email.value
-        const password1 = registerationForm.current.password1.value
-        const password2 = registerationForm.current.password2.value
-
-        if(password1 !== password2){
-            alert('password do not match')
-            return
-        }
-
-        const userInfo = { name, email, password: password1 };
-        try {
-           registerUser(userInfo);
-          navigate('/login'); 
-        } catch (error) {
-          console.error('Registration failed:', error);
-        }
+        const handleSubmit = async (e) => {
+          e.preventDefault();
         
-    }
+          const name = registerationForm.current.name.value.trim();
+          const email = registerationForm.current.email.value.trim();
+          const password1 = registerationForm.current.password1.value.trim();
+          const password2 = registerationForm.current.password2.value.trim();
+        
+          if (password1 !== password2) {
+            toast.error("Passwords do not match");
+            return;
+          }
+        
+          const userInfo = { name, email, password: password1 };
+
+        
+          try {
+            const response = await registerUser(userInfo); 
+            if (response) {
+              navigate("/login"); 
+            }
+          } catch (error) {
+            console.error("Registration failed:", error);
+          }
+        };
+        
   return (
     <div className={styles.container}>
       <div className={styles.loginRegisterContainer}>

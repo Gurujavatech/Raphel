@@ -1,12 +1,13 @@
-import { useState, createContext, useContext, useEffect } from "react";
+import { useState, useEffect, useContext, createContext } from "react";
 import { account } from "../appwriteConfig";
 import { ID } from "appwrite";
-
+import { PuffLoader } from "react-spinners"; 
+import { toast } from "react-toastify";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -16,60 +17,84 @@ export const AuthProvider = ({ children }) => {
   const loginUser = async (userInfo) => {
     setLoading(true);
     try {
-      await account.createEmailPasswordSession(userInfo.email, userInfo.password); 
-      const accountDetails = await account.get();
+      let response = await account.createEmailPasswordSession(
+        userInfo.email,
+        userInfo.password
+      );
+      console.log("session response:", response);
+
+      let accountDetails = await account.get();
+      console.log("account details:", accountDetails);
       setUser(accountDetails);
-      console.log("Login successful!");
     } catch (error) {
       console.error("Login Failed", error);
     }
     setLoading(false);
   };
-  
 
-  const logoutUser = async () => {
-    try {
-      await account.deleteSession("current");
-      setUser(null);
-      console.log("Logged out successfully");
-    } catch (error) {
-      console.error("Logout failed:", error);
-    
+  const logoutUser = () => {
+    try{
+      account.deleteSession("current");
+    setUser(null);
+    toast.success("Logged out successfully");
+  } catch(error){
+    console.error("Logout failed:", error);
+  }
     }
-  };
 
-  const registerUser = async (userInfo) => {
+    const registerUser = async (userInfo) => {
+      setLoading(true);
+      try {
+          await account.create(ID.unique(), userInfo.email, userInfo.password, userInfo.name);
+          toast.success("Registration Successful");
+          console.log("Registration successful");
+      } catch (error) {
+          toast.error("Registration error: " + error.message);
+          console.error("Registration error:", error);
+      } finally {
+          setLoading(false);
+      }
+  };
+    
+
+  const checkUserStatus = async () => {
     setLoading(true);
     try {
-      await account.create(ID.unique(), userInfo.email, userInfo.password1, userInfo.name);
-      console.log("Registration Successful");
+      let session = await account.getSession("current");
+      if (session) {
+        let accountDetails = await account.get();
+        setUser(accountDetails);
+      }
     } catch (error) {
-      
-      console.error("Registration error:", error);
+      console.error("Error checking user status:", error);
     } finally {
       setLoading(false);
     }
   };
 
-  const checkUserStatus = async () => {
-  setLoading(true);
-  try {
-    const accountDetails = await account.get(); 
-    setUser(accountDetails);
-  } catch (error) {
-    console.error("Error checking user status:", error);
-    setUser(null); 
-  } finally {
-    setLoading(false);
-  }
-};
-  
+  const contextData = {
+    user,
+    loginUser,
+    logoutUser,
+    registerUser,
+    checkUserStatus,
+  };
+
   return (
-    <AuthContext.Provider value={{ user, loginUser, logoutUser, registerUser }}>
-      {loading ? <p>Loading...</p> : children}
+    <AuthContext.Provider value={contextData}>
+      {loading ? (
+        <div className="flex justify-center items-center min-h-screen">
+          <PuffLoader color="#4A90E2" size={100} />
+        </div>
+      ) : (
+        children
+      )}
     </AuthContext.Provider>
   );
 };
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = () => {
+  return useContext(AuthContext);
+};
+
 export default AuthContext;

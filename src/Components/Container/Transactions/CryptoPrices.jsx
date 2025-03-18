@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom"; 
 import axios from "axios";
-import styles from './CryptoPrices.module.css'; 
+import styles from "./CryptoPrices.module.css";
 
 function CryptoPrices() {
   const [cryptoData, setCryptoData] = useState([]);
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const fetchCryptoData = async () => {
@@ -17,7 +19,7 @@ function CryptoPrices() {
               per_page: 5,
               page: 1,
               sparkline: false,
-            }
+            },
           }
         );
         setCryptoData(response.data);
@@ -34,7 +36,12 @@ function CryptoPrices() {
       <div className={styles["crypto-list"]}>
         {cryptoData.length > 0 ? (
           cryptoData.map((coin) => (
-            <div key={coin.id} className={styles["crypto-card"]}>
+            <div
+              key={coin.id}
+              className={styles["crypto-card"]}
+              onClick={() => navigate("/trade")} 
+              style={{ cursor: "pointer" }} 
+            >
               <img src={coin.image} alt={coin.name} className={styles["coin-icon"]} />
               <span className={styles["coin-name"]}>{coin.name}</span>
               <span className={styles["coin-price"]}>${coin.current_price.toFixed(2)}</span>

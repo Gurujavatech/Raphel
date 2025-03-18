@@ -1,0 +1,20 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .rightSection {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .profile {
+    background: #475569;
+    padding: 10px;
+    border-radius: 50%;
+  }
+  

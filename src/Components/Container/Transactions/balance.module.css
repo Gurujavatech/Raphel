@@ -39,6 +39,7 @@
 
 .balanceBox {
   background: #f4f4f423;
+  width: 200px;
   padding: 15px;
   border-radius: 10px;
   display: inline-block;

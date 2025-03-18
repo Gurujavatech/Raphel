@@ -11,33 +11,26 @@ const cryptoReducer = (state = initialState, action) => {
         ...state,
         transactions: [action.payload, ...state.transactions],
       };
-    case DEDUCT_BALANCE:
-      const totalBalance = state.transactions.reduce(
-        (acc, t) => acc + Number(t.amount),
-        0
-      );
-      const deductionAmount = Number(action.payload.amount);
-
-  console.log("Total Balance Before Deduction:", totalBalance);
-  console.log("Deduction Amount:", deductionAmount);
-
-      if (totalBalance >= deductionAmount) {
-        return {
-          ...state,
-          transactions: [
-            { amount: -deductionAmount },
-            ...state.transactions,
-          ],
-        };
-        
-      } else {
-        alert("Insufficient funds!");
+      case DEDUCT_BALANCE:
+      if (!action.payload || isNaN(action.payload.amount)) {
+        console.error("Invalid deduction payload:", action.payload);
         return state;
       }
+
+      const deductionAmount = Number(action.payload.amount);
+
+      return {
+        ...state,
+        transactions: [
+          { amount: -Math.abs(deductionAmount) }, 
+          ...state.transactions,
+        ],
+      };
 
     default:
       return state;
   }
 };
+  
 
 export default cryptoReducer;

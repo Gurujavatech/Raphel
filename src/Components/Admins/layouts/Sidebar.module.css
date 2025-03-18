@@ -1,0 +1,138 @@
+/* Sidebar.module.css */
+
+.sidebar {
+    --sidebar-width: 240px;
+    --collapsed-width: 70px;
+
+    width: var(--sidebar-width);
+    height: 100vh;
+    background-color: #ffffff;
+    border-right: 1px solid #e5e7eb;
+    transition: width 0.3s ease-in-out;
+    overflow-x: hidden;
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 10px;
+}
+
+.sidebar.collapsed {
+    width: var(--collapsed-width);
+}
+
+.logoContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.logoText {
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 10px;
+    color: #374151;
+}
+
+.sidebarLinks {
+    margin-top: 20px;
+}
+
+.sidebarGroup {
+    margin-bottom: 15px;
+}
+
+.sidebarGroupTitle {
+    font-size: 14px;
+    font-weight: 600;
+    color: #6b7280;
+    margin-bottom: 5px;
+    padding-left: 10px;
+}
+
+.collapsedTitle,
+.collapsedItem p {
+    display: none;
+}
+
+.sidebarItem {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    font-size: 16px;
+    color: #374151;
+    text-decoration: none;
+    transition: background 0.2s ease-in-out;
+    border-radius: 5px;
+}
+
+.sidebarItem:hover {
+    background-color: #f3f4f6;
+}
+
+.active {
+    background-color: #2563eb;
+    color: white;
+}
+
+.toggleContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+}
+
+/* Toggle Switch Styles */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 42px;
+    height: 22px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    border-radius: 34px;
+    transition: background-color 0.4s, transform 0.4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 3px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.4s;
+}
+
+input:checked + .slider {
+    background-color: #2563eb;
+}
+
+input:checked + .slider:before {
+    transform: translateX(18px);
+}
+
+.toggleLabel {
+    font-size: 14px;
+    color: #475569;
+    font-weight: 500;
+}

@@ -1,0 +1,14 @@
+.adminControls {
+    padding: 20px;
+    background: white;
+  }
+  
+  .btn {
+    margin: 10px;
+    padding: 10px 15px;
+    background: #16a34a;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  

@@ -1,0 +1,48 @@
+.progressContainer {
+    width: 100%;
+    max-width: 900px;
+    height: 20px;
+    background: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 20px auto;
+    position: relative;
+  }
+  
+  .progressBar {
+    height: 100%;
+    width: 900px;
+    max-width: 100%;
+    background: #4caf50;
+    transition: width 0.3s ease-in-out;
+  }
+  
+  .buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+  }
+  
+  button {
+    padding: 5px 10px;
+    border: none;
+    background: #007bff;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  button:hover {
+    background: #0056b3;
+  }
+  
+  .inputField {
+    width: 700px;
+    padding: 5px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    text-align: left;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  

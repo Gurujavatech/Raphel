@@ -1,6 +1,7 @@
 import React from "react";
 import { IoCard } from "react-icons/io5";
 import { SiSolana } from "react-icons/si";
+import { Link } from "react-router-dom";
 
 function Cards() {
   return (
@@ -8,26 +9,26 @@ function Cards() {
       <h3>Lets get Started!</h3>
       <div className="card-content">
         <h5>BUY CRYPTO</h5>
-        <a href="https://www.bitpay.com/buy-crypto">
-          <p>
+       <Link to = '/trade'>
+       <p>
             Buy your first crypto with a debit or credit card{" "}
             <span className="customIcon">
             <IoCard size={35} />
             </span>
           </p>
-        </a>
+          </Link> 
       </div>
       <div className="card-content">
-        <h5>TRANSFER CRYPTO</h5>
-        <a href="https://support.trustwallet.com/en/support/solutions/articles/67000731264-how-to-deposit-crypto-into-trust-wallet">
-          <p>
-            Deposit crypto from another wallet or exchange.{" "}
-            <span className="customIcon">
-            <SiSolana size={35}/>
-            </span>
-          </p>
-        </a>
-      </div>
+  <h5>TRANSFER CRYPTO</h5>
+  <Link to="/add">
+    <p>
+      Deposit crypto from another wallet or exchange.{" "}
+      <span className="customIcon">
+        <SiSolana size={35} />
+      </span>
+    </p>
+  </Link>
+</div>
     </div>
   );
 }

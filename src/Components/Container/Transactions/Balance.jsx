@@ -7,9 +7,14 @@ function Balance({ user, transactions = [] }) {
   const [low, setLow] = useState(null);
 
   const amount = Array.isArray(transactions)
-    ? transactions.map((transaction) => Number(transaction.amount))
+    ? transactions
+        .filter((transaction) => transaction && transaction.amount !== undefined)
+        .map((transaction) => Number(transaction.amount))
     : [];
+
   const total = amount.reduce((acc, i) => acc + i, 0);
+
+  console.log("Total balance:", total);
 
   useEffect(() => {
     const fetchBTCPrices = async () => {
@@ -37,14 +42,13 @@ function Balance({ user, transactions = [] }) {
         <UserWelcome user={user} transactions={transactions} />
       </div>
 
-      
       <div className={styles.rightSection}>
         <h2 className={styles.greeting}>
           Hello, {user ? user.name : "User"} 👍
         </h2>
 
         <div className={styles.balanceBox}>
-          <h3>Your balance is ${total.toLocaleString()}</h3>
+          <h3>${total.toLocaleString()}</h3> 
         </div>
 
         {high && low ? (
