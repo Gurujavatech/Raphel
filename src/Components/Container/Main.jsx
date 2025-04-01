@@ -9,6 +9,7 @@ import styles from "./Main.module.css";
 import NavBar from "../NavBar/NavBar";
 import { useAuth } from "../../Utilities/AuthContext";
 import BottomNav from "../BottomNav";
+import Signal from "./Transactions/Signal";
 
 function MainWrapper(props) {
   const { user } = useAuth();
@@ -37,7 +38,8 @@ export class Main extends Component {
           <div className={styles.container}>
             <Balance user={user} transactions={transactions} /> 
             <ReceiveIcon setBalance={setBalance} deductBalance={deductBalance} transactions={transactions} />
-            <Cards />
+            {/* <Cards /> */}
+            <Signal />
             <CryptoPrices />
             <BottomNav />
           </div>

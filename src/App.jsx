@@ -21,6 +21,8 @@ import TransactionsList from "./Components/Container/Transactions/TransactionsLi
 import BottomNav from "./Components/BottomNav"; 
 import Deposit from "./Components/Deposit/Deposit";
 import Add from "./Components/Container/Transactions/Add";
+import ManageUsers from "./Components/Admins/routes/dashboard/ManageUsers";
+import DashboardPage from "./Components/Admins/routes/dashboard/Page";
 
 
 
@@ -40,6 +42,12 @@ const router = createBrowserRouter([
   },
 
   {
+    path: "/manage/:userId",
+    element: <PrivateRoutes />, // Protect route
+    children: [{ index: true, element: <ManageUsers /> }], 
+  },
+
+  {
     path: "/trade",
     element: <PrivateRoutes />,
     children: [{ index: true, element: <TradePage /> }], 
@@ -49,8 +57,8 @@ const router = createBrowserRouter([
     path: "/admin",
     element: <AdminDashBoard />,
     children: [
-      { index: true, element: <Dashboard /> },
-      { path: "/admin/:customerId", element: <Dashboards /> },
+      { index: true, element: <DashboardPage/> },
+      { path: "/admin/:customerId", element: <DashboardPage /> },
     ], 
   },
 ]);

@@ -9,6 +9,22 @@ const TradePage = () => {
   const [signalStrength, setSignalStrength] = useState(50);
   const [showForm, setShowForm] = useState(false);
   const [assets, setAssets] = useState([]); 
+  const [progress, setProgress] = useState(0);
+const [, forceUpdate] = useState(0); // Add extra state to trigger updates
+
+useEffect(() => {
+  const savedProgress = localStorage.getItem("tradeProgress");
+  if (savedProgress !== null) {
+    setProgress(Number(savedProgress));
+    forceUpdate((prev) => prev + 1); // Force component re-render
+  }
+}, []);
+
+
+
+  
+  
+
 
   
   useEffect(() => {
@@ -57,7 +73,13 @@ const TradePage = () => {
         <div className={styles.progressBar}>
           <span>Live Trade</span>
           <div className={styles.progressTrack}>
-            <div className={styles.progressFill} style={{ width: "0%" }}></div>
+          <div 
+  className={styles.progressFill} 
+  style={{ width: `${progress}%`, backgroundColor: "blue" }}
+></div>
+
+
+
           </div>
         </div>
 

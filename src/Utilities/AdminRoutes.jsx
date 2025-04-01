@@ -1,43 +1,45 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { account, databases } from "../appwriteConfig";
+import { Query } from "appwrite"; 
 
-const DATABASE_ID = "7e5b3c990025f7c6bf72"; 
-const COLLECTION_ID = "67d0cdf000362577a5ad"; 
+const DATABASE_ID = "your_database_id"; 
+const COLLECTION_ID = "your_users_collection_id"; 
 
 const AdminRoutes = () => {
-  const [isAdmin, setIsAdmin] = useState(null); 
+  const [isAdmin, setIsAdmin] = useState(null);
 
   useEffect(() => {
     async function checkAdminStatus() {
       try {
-        
-        const user = await account.get();
+        const user = await account.get();  
         const userId = user.$id;
 
-        
-        const response = await databases.listDocuments(DATABASE_ID, COLLECTION_ID);
+        // Fetch user data from Appwrite’s "users" collection
+        const response = await databases.listDocuments(DATABASE_ID, COLLECTION_ID, [
+          Query.equal("userId", userId),
+        ]);
 
-        
-        const adminExists = response.documents.some(doc => doc.userId === userId);
-
-        setIsAdmin(adminExists); 
+        if (response.documents.length > 0) {
+          const userData = response.documents[0];
+          setIsAdmin(userData.isAdmin); // Ensure `isAdmin` is a boolean in Appwrite
+        } else {
+          setIsAdmin(false);
+        }
       } catch (error) {
         console.error("Error checking admin status:", error);
-        setIsAdmin(false); 
+        setIsAdmin(false);
       }
     }
 
     checkAdminStatus();
   }, []);
 
-  
   if (isAdmin === null) {
     return <p>Loading...</p>;
   }
 
-  
-  return isAdmin ? <Outlet /> : <Navigate to="/dashboard" replace />;
+  return isAdmin ? <Outlet /> : <Navigate to="/" replace />;
 };
 
 export default AdminRoutes;

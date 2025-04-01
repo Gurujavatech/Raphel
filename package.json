@@ -15,6 +15,7 @@
     "@mui/material": "^6.4.6",
     "@react-three/drei": "^10.0.3",
     "@react-three/fiber": "^9.0.4",
+    "@reduxjs/toolkit": "^2.6.1",
     "appwrite": "^17.0.0",
     "axios": "^1.8.1",
     "chart.js": "^4.4.8",

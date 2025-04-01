@@ -1,13 +1,23 @@
 import React, { useState } from "react";
 import { BsFillSendFill } from "react-icons/bs";
-import styles from "./Add.module.css"; 
+import { Client, Databases, Query, ID } from "appwrite";
+import styles from "./Add.module.css";
+import { useAuth } from "../../../Utilities/AuthContext";
 
-function Send({ deductBalance, balance, onClose }) {
+
+const client = new Client();
+client.setEndpoint("https://cloud.appwrite.io/v1").setProject("67d5ffab003bd6b6f70e");
+const databases = new Databases(client);
+
+const Send = ({ onClose }) => {
+  const { user } = useAuth();
+  const userId = user?.$id; 
   const [wallet, setWallet] = useState("");
   const [amount, setAmount] = useState("");
   const [selectedChain, setSelectedChain] = useState("Bitcoin");
+  const [message, setMessage] = useState("");
+  const [transactionType, setTransactionType] = useState("credit"); 
 
-  
   const walletLengths = {
     Bitcoin: { min: 26, max: 35 },
     Solana: { min: 44, max: 44 },
@@ -16,44 +26,124 @@ function Send({ deductBalance, balance, onClose }) {
     Base: { min: 42, max: 42 },
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const sendAmount = Number(amount);
-
-    if (isNaN(sendAmount) || sendAmount <= 0) {
-      alert("Enter a valid amount.");
-      return;
-    }
-
-    if (sendAmount > balance) {
-      alert("Insufficient funds.");
-      return;
-    }
-
-    
+  const validateWallet = () => {
     const walletLength = wallet.length;
     const { min, max } = walletLengths[selectedChain];
 
     if (walletLength < min || walletLength > max) {
-      alert(`Please enter a valid ${selectedChain} wallet ID.`);
+      setMessage({ text: `Invalid wallet address for ${selectedChain}.`, type: "error" });
+      return false;
+    }
+    return true;
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    // Check wallet validity
+    if (!validateWallet()) return;
+
+    const value = Number(amount); 
+
+    if (!value || isNaN(value) || value <= 0) {
+      setMessage({ text: "Please enter a valid amount.", type: "error" });
       return;
     }
 
-    console.log("Sending Amount:", sendAmount);
-    console.log("Current Balance:", balance);
+    try {
+      
+      const coinBalanceResponse = await databases.listDocuments(
+        "67df23180039007addf7", // Database ID
+        "67e86fa90037250a7e96", // Coin Balance Collection ID
+        [Query.equal("userId", userId), Query.equal("coin", selectedChain)] 
+      );
 
-    const newT = {
-      amount: -sendAmount, 
-    };
+      let coinBalanceDoc = coinBalanceResponse.documents[0] || null;
+      let currentCoinBalance = coinBalanceDoc ? coinBalanceDoc.balance : 0;
 
-    deductBalance(newT);
+      
+      let newCoinBalance = transactionType === "debit" 
+        ? currentCoinBalance - value 
+        : currentCoinBalance - value;
 
-    setAmount("");
-    setWallet("");
+      
+      if (transactionType === "debit" && currentCoinBalance === 0) {
+        setMessage({ text: "Cannot debit. Balance is zero.", type: "error" });
+        return;
+      }
 
-    if (onClose) {
-      onClose();
+      if (transactionType === "debit" && newCoinBalance < 0) {
+        setMessage({ text: "Insufficient funds for this coin.", type: "error" });
+        return;
+      }
+
+      
+      if (coinBalanceDoc) {
+        await databases.updateDocument(
+          "67df23180039007addf7", // Database ID
+          "67e86fa90037250a7e96", // Coin Balance Collection ID
+          coinBalanceDoc.$id, 
+          { balance: newCoinBalance } 
+        );
+      } else {
+        await databases.createDocument(
+          "67df23180039007addf7", // Database ID
+          "67e86fa90037250a7e96", // Coin Balance Collection ID
+          ID.unique(), 
+          { userId, coin: selectedChain, balance: newCoinBalance } 
+        );
+      }
+
+      
+      const totalBalanceResponse = await databases.listDocuments(
+        "67df23180039007addf7", // Database ID
+        "67ec0c8d000ac8d30852", // Total Balance Collection ID
+        [Query.equal("userId", userId)] 
+      );
+
+      const totalBalanceDoc = totalBalanceResponse.documents[0];
+      const currentTotalBalance = totalBalanceDoc ? totalBalanceDoc.totalBalance : 0;
+
+      
+      let newTotalBalance = transactionType === "debit" 
+        ? currentTotalBalance - value 
+        : currentTotalBalance - value;
+
+      
+      if (transactionType === "debit" && currentTotalBalance === 0) {
+        setMessage({ text: "Cannot debit from total balance. Balance is zero.", type: "error" });
+        return;
+      }
+
+      if (transactionType === "debit" && newTotalBalance < 0) {
+        setMessage({ text: "Insufficient total funds.", type: "error" });
+        return;
+      }
+
+      
+      if (totalBalanceDoc) {
+        await databases.updateDocument(
+          "67df23180039007addf7", 
+          "67ec0c8d000ac8d30852", 
+          totalBalanceDoc.$id, 
+          { totalBalance: newTotalBalance } 
+        );
+      } else {
+        await databases.createDocument(
+          "67df23180039007addf7", 
+          "67ec0c8d000ac8d30852", // Total Balance Collection ID
+          ID.unique(), 
+          { userId, totalBalance: newTotalBalance } 
+        );
+      }
+
+      
+      setMessage({ text: "Transaction successful!", type: "success" });
+      setAmount("");
+      onClose(); 
+    } catch (error) {
+      console.error("Transaction failed:", error);
+      setMessage({ text: "Transaction failed.", type: "error" });
     }
   };
 
@@ -96,8 +186,10 @@ function Send({ deductBalance, balance, onClose }) {
           Transfer Funds <BsFillSendFill />
         </button>
       </form>
+
+      {message && <p className={styles[message.type]}>{message.text}</p>}
     </div>
   );
-}
+};
 
 export default Send;

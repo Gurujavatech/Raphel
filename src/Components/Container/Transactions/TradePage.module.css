@@ -50,13 +50,14 @@
   
   
   .progressBars {
-    width: 90%;
-    max-width: 800px;
+    width: 100%;
+    max-width: 1200px;
     margin-top: 20px;
   }
   
   .progressBar {
     margin-bottom: 10px;
+    
   }
   
   .progressBar span {

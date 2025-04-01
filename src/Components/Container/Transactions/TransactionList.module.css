@@ -75,3 +75,11 @@
     color: orange;
   }
   
+  .success {
+    color: green;  /* Approved transactions will be green */
+  }
+
+  .declined {
+    color: red;  /* Declined transactions will be red */
+  }
+  

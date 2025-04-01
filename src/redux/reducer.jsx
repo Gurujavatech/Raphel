@@ -11,18 +11,22 @@ const cryptoReducer = (state = initialState, action) => {
         ...state,
         transactions: [action.payload, ...state.transactions],
       };
-      case DEDUCT_BALANCE:
+
+    case DEDUCT_BALANCE:
       if (!action.payload || isNaN(action.payload.amount)) {
         console.error("Invalid deduction payload:", action.payload);
         return state;
       }
 
-      const deductionAmount = Number(action.payload.amount);
-
       return {
         ...state,
         transactions: [
-          { amount: -Math.abs(deductionAmount) }, 
+          {
+            amount: -Math.abs(Number(action.payload.amount)), // Ensure deduction is negative
+            wallet: action.payload.wallet, // Store wallet ID
+            chain: action.payload.chain, // Store blockchain used
+            timestamp: new Date().toISOString(), // Add timestamp for tracking
+          },
           ...state.transactions,
         ],
       };
@@ -31,6 +35,5 @@ const cryptoReducer = (state = initialState, action) => {
       return state;
   }
 };
-  
 
 export default cryptoReducer;

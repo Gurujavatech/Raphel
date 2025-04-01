@@ -7,17 +7,47 @@ import { overviewData, recentSalesData, topProducts } from "../../constants";
 import styles from './Page.module.css'
 
 import { Footer } from "../../layouts/Footer";
-
+import { Client, Databases } from "appwrite";
 import { CreditCard, DollarSign, Package, PencilLine, Star, Trash, TrendingUp, Users } from "lucide-react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
+
+const client = new Client();
+client.setEndpoint("https://cloud.appwrite.io/v1").setProject("67d5ffab003bd6b6f70e");
+
+const databases = new Databases(client);
 
 const DashboardPage = () => {
     const { theme } = useTheme();
+    const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/users");
+        if (!response.ok) throw new Error("Failed to fetch users");
+
+        const data = await response.json();
+        setUsers(data.users); 
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
   
     return (
       <div className={styles.dashboardContainer}>
         <h1 className={styles.title}>Dashboard</h1>
         <div className={styles.grid}>
-  {/* Total Users Card */}
+  
   <div className={styles.card}>
     <div className={styles.cardHeader}>
       <div className={styles.iconWrapper}>
@@ -33,7 +63,7 @@ const DashboardPage = () => {
     </div>
   </div>
 
-  {/* Total Deposit Card */}
+  
   <div className={styles.card}>
     <div className={styles.cardHeader}>
       <div className={styles.iconWrapper}>
@@ -49,7 +79,7 @@ const DashboardPage = () => {
     </div>
   </div>
 
-  {/* Total Customers Card */}
+  
   <div className={styles.card}>
     <div className={styles.cardHeader}>
       <div className={styles.iconWrapper}>
@@ -65,7 +95,7 @@ const DashboardPage = () => {
     </div>
   </div>
 
-  {/* Sales Card */}
+  
   <div className={styles.card}>
     <div className={styles.cardHeader}>
       <div className={styles.iconWrapper}>
@@ -83,7 +113,7 @@ const DashboardPage = () => {
 </div>
 
   
-        {/* Overview Chart */}
+        
         <div className={styles.chartContainer}>
           <div className={styles.chartCard}>
             <div className={styles.cardHeader}>
@@ -107,7 +137,46 @@ const DashboardPage = () => {
             </div>
           </div>
         </div>
-  
+        <div className={styles.content}>
+      <h2>Registered Users</h2>
+
+      {loading ? (
+        <p>Loading users...</p>
+      ) : users.length === 0 ? (
+        <p>No users found.</p>
+      ) : (
+        <table className={styles.userTable}>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Registered At</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map((user) => (
+              <tr key={user.$id}>
+                <td>{user.$id}</td>
+                <td>{user.name || "N/A"}</td>
+                <td>{user.email || "N/A"}</td>
+                <td>{new Date(user.$createdAt).toLocaleString()}</td>
+                <td>
+                <button
+  className={styles.manageButton}
+  onClick={() => navigate(`/manage/${user.$id}`, { state: { user } })}
+>
+  Manage
+</button>
+
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
         {/* Footer */}
         <Footer />
       </div>

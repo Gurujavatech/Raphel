@@ -3,10 +3,11 @@ export const DEDUCT_BALANCE = "DEDUCT_BALANCE";
 
 
 
-export const setBalance = (transaction) => ({
-    type: SET_BALANCE,
-    payload: transaction
-})
+export const setBalance = (payload) => ({
+    type: "SET_BALANCE",
+    payload,
+  });
+  
 
 export const deductBalance = (transaction) => ({
     type: DEDUCT_BALANCE,
