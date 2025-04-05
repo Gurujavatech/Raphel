@@ -1,43 +1,13 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { account, databases } from "../appwriteConfig";
-import { Query } from "appwrite"; 
-
-const DATABASE_ID = "your_database_id"; 
-const COLLECTION_ID = "your_users_collection_id"; 
+import { useAuth } from "./AuthContext"; 
 
 const AdminRoutes = () => {
-  const [isAdmin, setIsAdmin] = useState(null);
+  const { user, loading } = useAuth();
 
-  useEffect(() => {
-    async function checkAdminStatus() {
-      try {
-        const user = await account.get();  
-        const userId = user.$id;
+  if (loading) return <div>Loading...</div>;
 
-        // Fetch user data from Appwrite’s "users" collection
-        const response = await databases.listDocuments(DATABASE_ID, COLLECTION_ID, [
-          Query.equal("userId", userId),
-        ]);
-
-        if (response.documents.length > 0) {
-          const userData = response.documents[0];
-          setIsAdmin(userData.isAdmin); // Ensure `isAdmin` is a boolean in Appwrite
-        } else {
-          setIsAdmin(false);
-        }
-      } catch (error) {
-        console.error("Error checking admin status:", error);
-        setIsAdmin(false);
-      }
-    }
-
-    checkAdminStatus();
-  }, []);
-
-  if (isAdmin === null) {
-    return <p>Loading...</p>;
-  }
+  
+  const isAdmin = user && user.email === "donjispy@gmail.com"; 
 
   return isAdmin ? <Outlet /> : <Navigate to="/" replace />;
 };

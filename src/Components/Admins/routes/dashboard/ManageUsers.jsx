@@ -20,6 +20,15 @@ const ManageUsers = () => {
   const [totalBalance, setTotalBalance] = useState(0); 
   const { state } = useLocation();
 
+  const [progress, setProgress] = useState(() => {
+    return Number(localStorage.getItem("tradeProgress") || 0);
+  });
+  const [signalStrength, setSignalStrength] = useState(() => {
+    return Number(localStorage.getItem("signalStrength") || 50);
+  });
+  
+
+
   const user = state?.user;
 
   useEffect(() => {
@@ -238,6 +247,41 @@ const ManageUsers = () => {
           )}
         </>
       )}
+      <div className={styles.progressCard}>
+  <div className={styles.rangeLabel}>Trade Progress: {progress}%</div>
+  <div className={styles.sliderWrapper}>
+    <input
+      type="range"
+      min="0"
+      max="100"
+      value={progress}
+      onChange={(e) => {
+        const value = Number(e.target.value);
+        setProgress(value);
+        localStorage.setItem("tradeProgress", value);
+      }}
+    />
+  </div>
+</div>
+
+<div className={styles.progressCard}>
+  <div className={styles.rangeLabel}>Signal Strength: {signalStrength}%</div>
+  <div className={styles.sliderWrapper}>
+    <input
+      type="range"
+      min="0"
+      max="100"
+      value={signalStrength}
+      onChange={(e) => {
+        const value = Number(e.target.value);
+        setSignalStrength(value);
+        localStorage.setItem("signalStrength", value);
+      }}
+    />
+  </div>
+</div>
+
+
     </div>
   );
 };

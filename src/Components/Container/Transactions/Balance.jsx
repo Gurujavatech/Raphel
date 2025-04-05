@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Client, Databases, Query } from "appwrite";
 import styles from "./Balance.module.css";
-import UserWelcome from "./UserWelcome";
+// import UserWelcome from "./UserWelcome";
 import { useAuth } from "../../../Utilities/AuthContext"; 
 
 const client = new Client();
@@ -85,14 +85,14 @@ function Balance({ transactions = [] }) {
 
   return (
     <div className={styles.balanceContainer}>
-      <div className={styles.leftSection}>
+      {/* <div className={styles.leftSection}>
         <UserWelcome user={user} transactions={transactions} />
-      </div>
+      </div> */}
 
       <div className={styles.rightSection}>
-        <h2 className={styles.greeting}>
+        {/* <h2 className={styles.greeting}>
           Hello, {user ? user.name : "User"} 👍
-        </h2>
+        </h2> */}
 
         <div className={styles.balanceBox}>
           {loading ? (

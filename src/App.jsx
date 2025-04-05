@@ -2,7 +2,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
 import { store, persistor } from "./redux/store";
 import { ToastContainer } from "react-toastify";
-import { createBrowserRouter, RouterProvider } from "react-router-dom"; // ✅ Import fixed
+import { createBrowserRouter, RouterProvider } from "react-router-dom"; 
 import MainLayout from "./Components/Container/MainLayout"; // Home Page
 import Main from "./Components/Container/Main"; // User Dashboard
 import PrivateRoutes from "./Utilities/PrivateRoutes"; // Protect User Routes
@@ -12,7 +12,7 @@ import Login from "./Logs/Login";
 import Register from "./Logs/Register";
 
 import SumLayout from "./Components/SumLayout";
-import AdminDashBoard from "./Components/Admins/AdminDashBoard";
+// import AdminRoutes from "./Utilities/AdminRoutes";
 import Dashboards from "./Components/Admins/Dashboards";
 import Dashboard from "./Components/Admins/Dashboard";
 import TradePage from "./Components/Container/Transactions/TradePage";
@@ -55,12 +55,13 @@ const router = createBrowserRouter([
 
   {
     path: "/admin",
-    element: <AdminDashBoard />,
+    element: <AdminRoutes />, 
     children: [
-      { index: true, element: <DashboardPage/> },
-      { path: "/admin/:customerId", element: <DashboardPage /> },
-    ], 
+      { index: true, element: <DashboardPage /> },
+      { path: ":customerId", element: <DashboardPage /> },
+    ],
   },
+  
 ]);
 
 function App() {

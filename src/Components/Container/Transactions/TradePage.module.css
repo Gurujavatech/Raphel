@@ -1,150 +1,145 @@
 .tradeContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    width: 100%;
-    height: 100vh;
-    padding: 20px;
-    background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100vh;
+  padding: 20px;
+  background-color: white;
+}
+
+.navbar {
+  width: 100%;
+  max-width: 100%;
+}
+
+.tradeContainer nav {
+  width: 100%;
+  max-width: 100%;
+}
+
+.tradeContainer .navbar {
+  width: 100%;
+}
+
+.backButton {
+  align-self: flex-start;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  background-color: #ff4757;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.chartContainer {
+  width: 100%;
+  max-width: 1400px;
+  height: 500px;
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.progressBars {
+  width: 100%;
+  max-width: 1200px;
+  margin-top: 20px;
+}
+
+.progressBar {
+  margin-bottom: 10px;
+}
+
+.progressBar span {
+  display: block;
+  color: black;
+  margin-bottom: 5px;
+}
+
+.progressTrack {
+  width: 100%;
+  height: 10px;
+  background-color: #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  transition: width 2s ease-in-out;
+}
+
+.tradeButton {
+  background: blue;
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 20px;
+  font-size: 16px;
+}
+
+.swapForm {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.swapForm label {
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+.swapForm select, .swapForm input {
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.buyButton, .sellButton {
+  margin-top: 10px;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.buyButton { background: green; color: white; }
+.sellButton { background: red; color: white; }
+
+@media (max-width: 768px) {
+  .tradeContainer {
+    padding: 10px;
   }
 
-  .navbar {
-    width: 100%;
-    max-width: 100%;
-  }
-  
-
-  .tradeContainer nav {
-    width: 100%; 
-    max-width: 100%;
-  }
-  
-  .tradeContainer .navbar {
-    width: 100%; 
-  }
-  
-  
-  .backButton {
-    align-self: flex-start;
-    padding: 10px 15px;
-    margin-bottom: 10px;
-    background-color: #ff4757;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 5px;
-  }
-  
-  
   .chartContainer {
-    width: 100%;
-    max-width: 1400px;
-    height: 500px;
-    background-color: white;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    height: 400px;
   }
-  
-  
-  .progressBars {
-    width: 100%;
-    max-width: 1200px;
-    margin-top: 20px;
-  }
-  
-  .progressBar {
-    margin-bottom: 10px;
-    
-  }
-  
-  .progressBar span {
-    display: block;
-    color: black;
-    margin-bottom: 5px;
-  }
-  
-  .progressTrack {
-    width: 100%;
-    height: 10px;
-    background-color: #ddd;
-    border-radius: 5px;
-    overflow: hidden;
-  }
-  
-  .progressFill {
-    height: 100%;
-    transition: width 2s ease-in-out;
-  }
-  
-  
-  .tradeButton {
-    background: blue;
-    color: white;
-    padding: 12px 25px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-top: 20px;
-    font-size: 16px;
-  }
-  
-  
+
   .swapForm {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    max-width: 350px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    margin-top: 20px;
+    max-width: 100%;
   }
-  
-  
-  .swapForm label {
-    font-weight: bold;
-    margin: 5px 0;
+
+  .tradeButton {
+    font-size: 14px;
+    padding: 10px 20px;
   }
-  
-  .swapForm select, .swapForm input {
-    padding: 8px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+
+  /* Make progress bar 90% width on mobile */
+  .progressBars {
+    width: 90%;
   }
-  
-  
-  .buyButton, .sellButton {
-    margin-top: 10px;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-  }
-  
-  .buyButton { background: green; color: white; }
-  .sellButton { background: red; color: white; }
-  
-  
-  @media (max-width: 768px) {
-    .tradeContainer {
-      padding: 10px;
-    }
-  
-    .chartContainer {
-      height: 400px;
-    }
-  
-    .swapForm {
-      max-width: 100%;
-    }
-  
-    .tradeButton {
-      font-size: 14px;
-      padding: 10px 20px;
-    }
-  }
+}
